@@ -21,10 +21,23 @@ type AuthType {
   token: String!
 }
 
+type Board {
+  id: Int!
+  name: String!
+  createdAt: DateTime!
+  createdBy: Int!
+  updatedAt: DateTime!
+  updatedBy: Int!
+  userId: Float!
+  user: User!
+}
+
 type Query {
   getAllUsers: [User!]!
   user(id: Int!): User!
   userByEmail(email: String!): User
+  getAllBoards: [Board!]!
+  board(id: Int!): Board!
 }
 
 type Mutation {
@@ -34,6 +47,9 @@ type Mutation {
   signup(data: SignupInput!): AuthType!
   login(data: AuthInput!): AuthType!
   logout(userId: Float!): Boolean!
+  createBoard(data: CreateBoardInput!): Board!
+  updateBoard(id: Int!, data: UpdateBoardInput!): Board!
+  deleteBoard(id: Int!): Boolean!
 }
 
 input CreateUserInput {
@@ -57,4 +73,16 @@ input SignupInput {
 input AuthInput {
   email: String!
   password: String!
+}
+
+input CreateBoardInput {
+  name: String!
+  userId: Int!
+  createdBy: Int
+}
+
+input UpdateBoardInput {
+  id: Int
+  name: String
+  updatedBy: Int
 }
