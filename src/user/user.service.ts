@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma, User } from '@prisma/client';
+import { hashPasswordTransform } from 'src/common/helpers/crypto';
 
 @Injectable()
 export class UserService {
@@ -11,7 +12,9 @@ export class UserService {
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    return this.prisma.user.create({ data });
+    const hashedPassword = hashPasswordTransform.to(data.password);
+    const userData = { ...data, password: hashedPassword };
+    return this.prisma.user.create({ data: userData });
   }
 
   async findUserByEmail(email: string): Promise<User | null> {
@@ -23,6 +26,9 @@ export class UserService {
   }
 
   async updateUser(id: number, data: Prisma.UserUpdateInput): Promise<User> {
+    if (data.password) {
+      data.password = hashPasswordTransform.to(data.password.toString());
+    }
     return this.prisma.user.update({
       where: { id },
       data,
@@ -34,13 +40,14 @@ export class UserService {
       where: { id },
     });
 
-    if (user) {
-      await this.prisma.user.delete({
-        where: { id },
-      });
-      return true;
-    } else {
-      return false;
+    if (!user) {
+      throw new NotFoundException(`User with id ${id} not found`);
     }
+
+    await this.prisma.user.delete({
+      where: { id },
+    });
+
+    return true;
   }
 }

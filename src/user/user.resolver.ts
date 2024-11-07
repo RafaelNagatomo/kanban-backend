@@ -3,16 +3,20 @@ import { UserService } from './user.service';
 import { User } from './user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from 'src/auth/auth.guard';
 
 @Resolver(() => User)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => [User])
   async getAllUsers(): Promise<User[]> {
     return this.userService.findAllUsers();
   }
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => User, { name: 'user' })
   async getUserById(
     @Args('id', { type: () => Int }) id: number,
@@ -20,6 +24,7 @@ export class UserResolver {
     return this.userService.findUserById(id);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => User, { name: 'userByEmail', nullable: true })
   async getUserByEmail(
     @Args('email', { type: () => String }) email: string,
@@ -27,11 +32,13 @@ export class UserResolver {
     return this.userService.findUserByEmail(email);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => User)
   async createUser(@Args('data') data: CreateUserInput): Promise<User> {
     return this.userService.createUser(data);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => User)
   async updateUser(
     @Args('id', { type: () => Int }) id: number,
@@ -40,6 +47,7 @@ export class UserResolver {
     return this.userService.updateUser(id, data);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Boolean)
   async deleteUser(
     @Args('id', { type: () => Int }) id: number,

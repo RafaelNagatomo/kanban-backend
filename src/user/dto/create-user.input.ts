@@ -14,6 +14,7 @@ export class CreateUserInput {
   email: string;
 
   @Field()
+  @IsString()
   @IsNotEmpty({ message: 'Este campo é obrigatório.' })
   password: string;
 }
