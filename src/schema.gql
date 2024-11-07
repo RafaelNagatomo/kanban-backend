@@ -16,6 +16,11 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type AuthType {
+  user: User!
+  token: String!
+}
+
 type Query {
   getAllUsers: [User!]!
   user(id: Int!): User!
@@ -26,6 +31,9 @@ type Mutation {
   createUser(data: CreateUserInput!): User!
   updateUser(id: Int!, data: UpdateUserInput!): User!
   deleteUser(id: Int!): Boolean!
+  signup(data: SignupInput!): AuthType!
+  login(data: AuthInput!): AuthType!
+  logout(userId: Float!): Boolean!
 }
 
 input CreateUserInput {
@@ -37,4 +45,16 @@ input CreateUserInput {
 input UpdateUserInput {
   name: String
   email: String
+  password: String
+}
+
+input SignupInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input AuthInput {
+  email: String!
+  password: String!
 }
