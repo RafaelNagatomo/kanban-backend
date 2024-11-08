@@ -32,12 +32,26 @@ type Board {
   user: User!
 }
 
+type Column {
+  id: Int!
+  name: String!
+  position: Float!
+  createdAt: DateTime!
+  createdBy: Float!
+  updatedAt: DateTime!
+  updatedBy: Float!
+  board: Board!
+  boardId: Int!
+}
+
 type Query {
   getAllUsers: [User!]!
   user(id: Int!): User!
   userByEmail(email: String!): User
   getAllBoards: [Board!]!
   board(id: Int!): Board!
+  getAllColumns: [Column!]!
+  getColumnById(id: Float!): Column!
 }
 
 type Mutation {
@@ -50,6 +64,9 @@ type Mutation {
   createBoard(data: CreateBoardInput!): Board!
   updateBoard(id: Int!, data: UpdateBoardInput!): Board!
   deleteBoard(id: Int!): Boolean!
+  createColumn(data: CreateColumnInput!): Column!
+  updateColumn(id: Int!, data: UpdateColumnInput!): Column!
+  deleteColumn(id: Int!): Boolean!
 }
 
 input CreateUserInput {
@@ -85,4 +102,16 @@ input UpdateBoardInput {
   id: Int
   name: String
   updatedBy: Int
+}
+
+input CreateColumnInput {
+  name: String!
+  position: Int!
+  boardId: Int!
+}
+
+input UpdateColumnInput {
+  name: String
+  position: Int
+  boardId: Int
 }

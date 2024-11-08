@@ -1,4 +1,5 @@
 import { Board } from 'src/board/board.entity';
+import { Column } from 'src/column/column.entity';
 import { User } from 'src/user/user.entity';
 export default class TestUtil {
   static giveMeAvalidUser(): User {
@@ -24,5 +25,19 @@ export default class TestUtil {
     board.userId = 1;
     board.user = this.giveMeAvalidUser();
     return board;
+  }
+
+  static giveMeAvalidColumn(): Column {
+    const column = new Column();
+    column.id = 1;
+    column.name = 'Sample Column';
+    column.createdAt = new Date('2024-01-02T00:00:00.000Z');
+    column.createdBy = 1;
+    column.updatedAt = new Date('2024-01-02T00:00:00.000Z');
+    column.updatedBy = 1;
+    column.position = 1;
+    column.board = this.giveMeAvalidBoard();
+    column.boardId = 1;
+    return column;
   }
 }
