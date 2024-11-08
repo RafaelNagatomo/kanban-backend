@@ -10,7 +10,6 @@ import TestUtil from 'src/common/util/testUtil';
 describe('UserService', () => {
   let service: UserService;
 
-  // Mock do PrismaService
   const mockPrismaService = {
     user: {
       findMany: jest.fn(),

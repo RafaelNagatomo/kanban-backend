@@ -8,30 +8,33 @@ import { Board } from '@prisma/client';
 export class BoardService {
   constructor(private prisma: PrismaService) {}
 
-  async createBoard(createBoardInput: CreateBoardInput) {
-    return this.prisma.board.create({
-      data: createBoardInput,
-    });
-  }
-
   async findAllBoards(): Promise<Board[]> {
     return this.prisma.board.findMany();
   }
 
-  async findOneBoard(id: number) {
+  async findBoardById(id: number): Promise<Board | null> {
     return this.prisma.board.findUnique({
       where: { id },
     });
   }
 
-  async updateBoard(id: number, updateBoardInput: UpdateBoardInput) {
+  async createBoard(createBoardInput: CreateBoardInput): Promise<Board> {
+    return this.prisma.board.create({
+      data: createBoardInput,
+    });
+  }
+
+  async updateBoard(
+    id: number,
+    updateBoardInput: UpdateBoardInput,
+  ): Promise<Board> {
     return this.prisma.board.update({
       where: { id },
       data: updateBoardInput,
     });
   }
 
-  async deleteBoard(id: number) {
+  async deleteBoard(id: number): Promise<boolean> {
     const board = await this.prisma.board.findUnique({
       where: { id },
     });

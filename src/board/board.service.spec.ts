@@ -75,7 +75,7 @@ describe('BoardService', () => {
 
       jest.spyOn(prisma.board, 'findUnique').mockResolvedValue(board);
 
-      const result = await service.findOneBoard(1);
+      const result = await service.findBoardById(1);
       expect(result).toEqual(board);
       expect(prisma.board.findUnique).toHaveBeenCalledWith({
         where: { id: 1 },
@@ -85,7 +85,7 @@ describe('BoardService', () => {
     it('should return null if board does not exist', async () => {
       jest.spyOn(prisma.board, 'findUnique').mockResolvedValue(null);
 
-      const result = await service.findOneBoard(999);
+      const result = await service.findBoardById(999);
       expect(result).toBeNull();
       expect(prisma.board.findUnique).toHaveBeenCalledWith({
         where: { id: 999 },
@@ -119,12 +119,26 @@ describe('BoardService', () => {
   describe('remove', () => {
     it('should remove a board by ID', async () => {
       const board = TestUtil.giveMeAvalidBoard();
+      prisma.board.findUnique = jest.fn().mockResolvedValue(board);
+      prisma.board.delete = jest.fn().mockResolvedValue(board);
 
-      jest.spyOn(prisma.board, 'delete').mockResolvedValue(board);
+      const deletedBoard = await service.deleteBoard(board.id);
 
-      const result = await service.deleteBoard(1);
-      expect(result).toEqual(board);
-      expect(prisma.board.delete).toHaveBeenCalledWith({ where: { id: 1 } });
+      expect(deletedBoard).toBe(true);
+      expect(prisma.board.delete).toHaveBeenCalledWith({
+        where: { id: board.id },
+      });
+    });
+
+    it('should throw an exception if board to delete not found', async () => {
+      prisma.board.delete = jest
+        .fn()
+        .mockRejectedValue(new Error('Board not found'));
+
+      await expect(service.deleteBoard(999)).rejects.toThrow(
+        `Board with ID 999 not found`,
+      );
+      expect(prisma.board.delete).toHaveBeenCalledTimes(1);
     });
   });
 });

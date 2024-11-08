@@ -11,12 +11,6 @@ export class BoardResolver {
   constructor(private readonly boardService: BoardService) {}
 
   @UseGuards(GqlAuthGuard)
-  @Mutation(() => Board)
-  async createBoard(@Args('data') data: CreateBoardInput) {
-    return this.boardService.createBoard(data);
-  }
-
-  @UseGuards(GqlAuthGuard)
   @Query(() => [Board])
   async getAllBoards(): Promise<Board[]> {
     return this.boardService.findAllBoards();
@@ -27,7 +21,13 @@ export class BoardResolver {
   async getBoardById(
     @Args('id', { type: () => Int }) id: number,
   ): Promise<Board> {
-    return this.boardService.findOneBoard(id);
+    return this.boardService.findBoardById(id);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => Board)
+  async createBoard(@Args('data') data: CreateBoardInput) {
+    return this.boardService.createBoard(data);
   }
 
   @UseGuards(GqlAuthGuard)

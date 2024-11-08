@@ -11,18 +11,18 @@ export class UserService {
     return this.prisma.user.findMany();
   }
 
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    const hashedPassword = hashPasswordTransform.to(data.password);
-    const userData = { ...data, password: hashedPassword };
-    return this.prisma.user.create({ data: userData });
-  }
-
   async findUserByEmail(email: string): Promise<User | null> {
     return this.prisma.user.findUnique({ where: { email } });
   }
 
   async findUserById(id: number): Promise<User | null> {
     return this.prisma.user.findUnique({ where: { id } });
+  }
+
+  async createUser(data: Prisma.UserCreateInput): Promise<User> {
+    const hashedPassword = hashPasswordTransform.to(data.password);
+    const userData = { ...data, password: hashedPassword };
+    return this.prisma.user.create({ data: userData });
   }
 
   async updateUser(id: number, data: Prisma.UserUpdateInput): Promise<User> {
