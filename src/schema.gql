@@ -44,6 +44,19 @@ type Column {
   boardId: Int!
 }
 
+type Card {
+  id: Int!
+  title: String!
+  description: String!
+  position: Float!
+  createdAt: DateTime!
+  createdBy: Float!
+  updatedAt: DateTime!
+  updatedBy: Float!
+  column: Column!
+  columnId: Int!
+}
+
 type Query {
   getAllUsers: [User!]!
   user(id: Int!): User!
@@ -52,6 +65,8 @@ type Query {
   board(id: Int!): Board!
   getAllColumns: [Column!]!
   getColumnById(id: Float!): Column!
+  getAllCards: [Card!]!
+  getCardById(id: Float!): Card!
 }
 
 type Mutation {
@@ -67,6 +82,9 @@ type Mutation {
   createColumn(data: CreateColumnInput!): Column!
   updateColumn(id: Int!, data: UpdateColumnInput!): Column!
   deleteColumn(id: Int!): Boolean!
+  createCard(data: CreateCardInput!): Card!
+  updateCard(id: Int!, data: UpdateCardInput!): Card!
+  deleteCard(id: Int!): Boolean!
 }
 
 input CreateUserInput {
@@ -114,4 +132,17 @@ input UpdateColumnInput {
   name: String
   position: Int
   boardId: Int
+}
+
+input CreateCardInput {
+  title: String!
+  description: String!
+  position: Float!
+  columnId: Float!
+}
+
+input UpdateCardInput {
+  id: Int
+  title: String
+  description: String
 }

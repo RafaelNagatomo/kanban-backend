@@ -1,4 +1,5 @@
 import { Board } from 'src/board/board.entity';
+import { Card } from 'src/card/card.entity';
 import { Column } from 'src/column/column.entity';
 import { User } from 'src/user/user.entity';
 export default class TestUtil {
@@ -39,5 +40,18 @@ export default class TestUtil {
     column.board = this.giveMeAvalidBoard();
     column.boardId = 1;
     return column;
+  }
+
+  static giveMeAvalidCard(): Card {
+    const card = new Card();
+    card.id = 1;
+    card.title = 'Sample Card';
+    card.createdAt = new Date('2024-01-02T00:00:00.000Z');
+    card.createdBy = 1;
+    card.updatedAt = new Date('2024-01-02T00:00:00.000Z');
+    card.updatedBy = 1;
+    card.position = 1;
+    card.description = 'Sample description';
+    return card;
   }
 }

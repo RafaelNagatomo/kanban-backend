@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { BoardModule } from './board/board.module';
 import { ColumnModule } from './column/column.module';
+import { CardModule } from './card/card.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ColumnModule } from './column/column.module';
     AuthModule,
     BoardModule,
     ColumnModule,
+    CardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
