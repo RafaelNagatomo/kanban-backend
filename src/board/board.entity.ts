@@ -3,27 +3,27 @@ import { User } from 'src/user/user.entity';
 
 @ObjectType()
 export class Board {
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   id: number;
 
-  @Field()
+  @Field({ nullable: true })
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   createdAt: Date;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   createdBy: number;
 
-  @Field()
+  @Field({ nullable: true })
   updatedAt: Date;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   updatedBy: number;
 
-  @Field()
+  @Field({ nullable: true })
   userId: number;
 
-  @Field(() => User)
+  @Field(() => User, { nullable: true })
   user?: User;
 }
