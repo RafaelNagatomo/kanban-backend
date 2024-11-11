@@ -18,8 +18,8 @@ export class CardResolver {
 
   // @UseGuards(GqlAuthGuard)
   @Query(() => Card)
-  async getCardById(@Args('id') id: number): Promise<Card> {
-    return this.cardService.findCardById(id);
+  async getCardByColumnId(@Args('columnId') columnId: number): Promise<Card[]> {
+    return this.cardService.findCardBycolumnId(columnId);
   }
 
   // @UseGuards(GqlAuthGuard)

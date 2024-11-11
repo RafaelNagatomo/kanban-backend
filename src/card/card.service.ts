@@ -16,12 +16,9 @@ export class CardService {
     });
   }
 
-  async findCardById(id: number): Promise<Card> {
-    return this.prisma.card.findUnique({
-      where: { id },
-      include: {
-        column: true,
-      },
+  async findCardBycolumnId(columnId: number): Promise<Card[]> {
+    return this.prisma.card.findMany({
+      where: { columnId: columnId },
     });
   }
 

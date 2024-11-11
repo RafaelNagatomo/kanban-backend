@@ -8,6 +8,10 @@ export class UpdateCardInput {
   id?: number;
 
   @Field({ nullable: true })
+  @IsOptional()
+  position?: number;
+
+  @Field({ nullable: true })
   @IsString()
   @IsOptional()
   title?: string;
@@ -16,4 +20,8 @@ export class UpdateCardInput {
   @IsString()
   @IsOptional()
   description?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  columnId?: number;
 }
