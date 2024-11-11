@@ -3,6 +3,11 @@ import { IsOptional, IsString } from 'class-validator';
 
 @InputType()
 export class UpdateColumnInput {
+  @Field(() => Int, { nullable: true })
+  @IsString()
+  @IsOptional()
+  id?: number;
+
   @Field({ nullable: true })
   @IsString()
   @IsOptional()
