@@ -3,33 +3,33 @@ import { Column } from '../column/column.entity';
 
 @ObjectType()
 export class Card {
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   id: number;
 
-  @Field()
+  @Field({ nullable: true })
   title?: string;
 
-  @Field()
+  @Field({ nullable: true })
   description?: string;
 
-  @Field()
+  @Field({ nullable: true })
   position?: number;
 
-  @Field()
+  @Field({ nullable: true })
   createdAt: Date;
 
-  @Field()
+  @Field({ nullable: true })
   createdBy: number;
 
-  @Field()
+  @Field({ nullable: true })
   updatedAt: Date;
 
-  @Field()
+  @Field({ nullable: true })
   updatedBy: number;
 
-  @Field(() => Column)
+  @Field(() => Column, { nullable: true })
   column?: Column;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   columnId?: number;
 }

@@ -3,30 +3,30 @@ import { Board } from '../board/board.entity';
 
 @ObjectType()
 export class Column {
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   id: number;
 
-  @Field()
+  @Field({ nullable: true })
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   position?: number;
 
-  @Field()
+  @Field({ nullable: true })
   createdAt: Date;
 
-  @Field()
+  @Field({ nullable: true })
   createdBy: number;
 
-  @Field()
+  @Field({ nullable: true })
   updatedAt: Date;
 
-  @Field()
+  @Field({ nullable: true })
   updatedBy: number;
 
-  @Field(() => Board)
+  @Field(() => Board, { nullable: true })
   board?: Board;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   boardId?: number;
 }
