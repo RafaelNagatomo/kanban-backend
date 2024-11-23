@@ -24,6 +24,7 @@ type AuthType {
 type Board {
   id: Int
   name: String
+  description: String
   createdAt: DateTime
   createdBy: Int
   updatedAt: DateTime
@@ -113,6 +114,7 @@ input AuthInput {
 
 input CreateBoardInput {
   name: String!
+  description: String!
   userId: Int!
   createdBy: Int
 }
@@ -120,6 +122,7 @@ input CreateBoardInput {
 input UpdateBoardInput {
   id: Int
   name: String
+  description: String
   updatedBy: Int
 }
 

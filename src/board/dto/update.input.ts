@@ -12,6 +12,11 @@ export class UpdateBoardInput {
   @IsOptional()
   name: string;
 
+  @Field({ nullable: true })
+  @IsString()
+  @IsOptional()
+  description?: string;
+
   @Field(() => Int, { nullable: true })
   @IsOptional()
   updatedBy?: number;

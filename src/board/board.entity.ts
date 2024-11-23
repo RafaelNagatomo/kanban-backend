@@ -10,6 +10,9 @@ export class Board {
   name: string;
 
   @Field({ nullable: true })
+  description: string;
+
+  @Field({ nullable: true })
   createdAt: Date;
 
   @Field(() => Int, { nullable: true })
