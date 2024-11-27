@@ -12,8 +12,21 @@ export class ColumnResolver {
 
   // @UseGuards(GqlAuthGuard)
   @Query(() => [Column])
-  async getAllColumns(): Promise<Column[]> {
-    return this.columnService.findAllColumn();
+  async getAllColumns(
+    @Args('orderBy', {
+      type: () => String,
+      nullable: true,
+      defaultValue: 'asc',
+    })
+    orderBy: string,
+    @Args('boardId', { type: () => Number, nullable: true })
+    boardId?: number,
+  ): Promise<Column[]> {
+    const order = orderBy === 'asc' ? 'asc' : 'desc';
+    return this.columnService.findAllColumn({
+      orderBy: { position: order },
+      where: boardId ? { boardId } : undefined,
+    });
   }
 
   // @UseGuards(GqlAuthGuard)

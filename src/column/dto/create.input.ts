@@ -6,7 +6,7 @@ export class CreateColumnInput {
   name: string;
 
   @Field(() => Int)
-  position?: number;
+  createdBy?: number;
 
   @Field(() => Int)
   boardId?: number;

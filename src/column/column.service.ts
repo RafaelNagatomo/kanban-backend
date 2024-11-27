@@ -8,8 +8,13 @@ import { CreateColumnInput } from './dto/create.input';
 export class ColumnService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAllColumn(): Promise<Column[]> {
+  async findAllColumn(params: {
+    orderBy: { position: 'asc' | 'desc' };
+    where?: { boardId: number };
+  }): Promise<Column[]> {
     return this.prisma.column.findMany({
+      orderBy: params.orderBy,
+      where: params.where,
       include: {
         cards: true,
         board: true,
@@ -28,10 +33,18 @@ export class ColumnService {
   }
 
   async createColumn(data: CreateColumnInput): Promise<Column> {
+    const lastPosition = await this.prisma.column.findFirst({
+      where: { boardId: data.boardId },
+      orderBy: { position: 'desc' },
+      select: { position: true },
+    });
+    const nextPosition = (lastPosition?.position || 0) + 1;
+
     return this.prisma.column.create({
       data: {
         name: data.name,
-        position: data.position,
+        position: nextPosition,
+        createdBy: data.createdBy,
         board: { connect: { id: data.boardId } },
       },
     });
