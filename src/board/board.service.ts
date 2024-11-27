@@ -8,8 +8,12 @@ import { Board } from '@prisma/client';
 export class BoardService {
   constructor(private prisma: PrismaService) {}
 
-  async findAllBoards(): Promise<Board[]> {
-    return this.prisma.board.findMany();
+  async findAllBoards(params: {
+    orderBy: { id: 'asc' | 'desc' };
+  }): Promise<Board[]> {
+    return this.prisma.board.findMany({
+      orderBy: params.orderBy,
+    });
   }
 
   async findBoardById(id: number): Promise<Board | null> {

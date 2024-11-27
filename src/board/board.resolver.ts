@@ -12,12 +12,22 @@ export class BoardResolver {
 
   // @UseGuards(GqlAuthGuard)
   @Query(() => [Board])
-  async getAllBoards(): Promise<Board[]> {
-    return this.boardService.findAllBoards();
+  async getAllBoards(
+    @Args('orderBy', {
+      type: () => String,
+      nullable: true,
+      defaultValue: 'asc',
+    })
+    orderBy: string,
+  ): Promise<Board[]> {
+    const order = orderBy === 'asc' ? 'asc' : 'desc';
+    return this.boardService.findAllBoards({
+      orderBy: { id: order },
+    });
   }
 
   // @UseGuards(GqlAuthGuard)
-  @Query(() => Board, { name: 'board' })
+  @Query(() => Board)
   async getBoardById(
     @Args('id', { type: () => Int }) id: number,
   ): Promise<Board> {

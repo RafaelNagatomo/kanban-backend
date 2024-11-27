@@ -62,9 +62,9 @@ type Query {
   getAllUsers: [User!]!
   user(id: Int!): User!
   userByEmail(email: String!): User
-  getAllBoards: [Board!]!
-  board(id: Int!): Board!
-  getAllColumns: [Column!]!
+  getAllBoards(orderBy: String = "asc"): [Board!]!
+  getBoardById(id: Int!): Board!
+  getAllColumns(orderBy: String = "asc", boardId: Float): [Column!]!
   getColumnById(id: Float!): Column!
   getAllCards: [Card!]!
   getCardByColumnId(columnId: Float!): Card!
@@ -128,7 +128,7 @@ input UpdateBoardInput {
 
 input CreateColumnInput {
   name: String!
-  position: Int!
+  createdBy: Int!
   boardId: Int!
 }
 
