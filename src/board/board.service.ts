@@ -13,6 +13,9 @@ export class BoardService {
   }): Promise<Board[]> {
     return this.prisma.board.findMany({
       orderBy: params.orderBy,
+      include: {
+        columns: true,
+      },
     });
   }
 

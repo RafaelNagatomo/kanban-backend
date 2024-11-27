@@ -1,4 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Column } from 'src/column/column.entity';
 import { User } from 'src/user/user.entity';
 
 @ObjectType()
@@ -29,4 +30,7 @@ export class Board {
 
   @Field(() => User, { nullable: true })
   user?: User;
+
+  @Field(() => [Column], { nullable: true })
+  columns?: Column[];
 }

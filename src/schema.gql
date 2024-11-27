@@ -21,18 +21,6 @@ type AuthType {
   token: String!
 }
 
-type Board {
-  id: Int
-  name: String
-  description: String
-  createdAt: DateTime
-  createdBy: Int
-  updatedAt: DateTime
-  updatedBy: Int
-  userId: Float
-  user: User
-}
-
 type Column {
   id: Int
   name: String
@@ -43,6 +31,19 @@ type Column {
   updatedBy: Float
   board: Board
   boardId: Int
+}
+
+type Board {
+  id: Int
+  name: String
+  description: String
+  createdAt: DateTime
+  createdBy: Int
+  updatedAt: DateTime
+  updatedBy: Int
+  userId: Float
+  user: User
+  columns: [Column!]
 }
 
 type Card {
