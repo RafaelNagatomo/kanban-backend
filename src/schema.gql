@@ -141,7 +141,7 @@ input UpdateColumnInput {
 }
 
 input CreateCardInput {
-  title: String!
+  name: String!
   description: String!
   position: Float!
   columnId: Float!
@@ -150,7 +150,7 @@ input CreateCardInput {
 input UpdateCardInput {
   id: Int
   position: Float
-  title: String
+  name: String
   description: String
   columnId: Float
 }

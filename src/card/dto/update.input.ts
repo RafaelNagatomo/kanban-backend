@@ -14,7 +14,7 @@ export class UpdateCardInput {
   @Field({ nullable: true })
   @IsString()
   @IsOptional()
-  title?: string;
+  name?: string;
 
   @Field({ nullable: true })
   @IsString()

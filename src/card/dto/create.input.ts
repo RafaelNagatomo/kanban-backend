@@ -1,15 +1,15 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { InputType, Field, Int } from '@nestjs/graphql';
 
 @InputType()
 export class CreateCardInput {
   @Field()
-  title?: string;
+  name?: string;
 
   @Field()
   description?: string;
 
-  @Field()
-  position?: number;
+  @Field(() => Int)
+  createdBy?: number;
 
   @Field()
   columnId?: number;

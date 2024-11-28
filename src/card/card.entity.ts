@@ -7,7 +7,7 @@ export class Card {
   id: number;
 
   @Field({ nullable: true })
-  title?: string;
+  name?: string;
 
   @Field({ nullable: true })
   description?: string;
