@@ -19,5 +19,5 @@ export class UpdateColumnInput {
 
   @Field(() => Int, { nullable: true })
   @IsOptional()
-  boardId?: number;
+  updatedBy?: number;
 }

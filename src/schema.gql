@@ -137,7 +137,7 @@ input UpdateColumnInput {
   id: Int
   name: String
   position: Int
-  boardId: Int
+  updatedBy: Int
 }
 
 input CreateCardInput {
