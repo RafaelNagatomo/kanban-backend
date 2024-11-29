@@ -12,8 +12,21 @@ export class CardResolver {
 
   // @UseGuards(GqlAuthGuard)
   @Query(() => [Card])
-  async getAllCards(): Promise<Card[]> {
-    return this.cardService.findAllCard();
+  async getAllCards(
+    @Args('orderBy', {
+      type: () => String,
+      nullable: true,
+      defaultValue: 'asc',
+    })
+    orderBy: string,
+    @Args('columnId', { type: () => Number, nullable: true })
+    columnId?: number,
+  ): Promise<Card[]> {
+    const order = orderBy === 'asc' ? 'asc' : 'desc';
+    return this.cardService.findAllCard({
+      orderBy: { position: order },
+      where: columnId ? { columnId } : undefined,
+    });
   }
 
   // @UseGuards(GqlAuthGuard)

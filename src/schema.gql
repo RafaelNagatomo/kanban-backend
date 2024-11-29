@@ -67,7 +67,7 @@ type Query {
   getBoardById(id: Int!): Board!
   getAllColumns(orderBy: String = "asc", boardId: Float): [Column!]!
   getColumnById(id: Float!): Column!
-  getAllCards: [Card!]!
+  getAllCards(orderBy: String = "asc", columnId: Float): [Card!]!
   getCardByColumnId(columnId: Float!): Card!
 }
 
@@ -153,4 +153,5 @@ input UpdateCardInput {
   name: String
   description: String
   columnId: Float
+  updatedBy: Float
 }

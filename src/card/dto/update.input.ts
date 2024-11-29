@@ -24,4 +24,8 @@ export class UpdateCardInput {
   @Field({ nullable: true })
   @IsOptional()
   columnId?: number;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  updatedBy?: number;
 }

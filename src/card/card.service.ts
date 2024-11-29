@@ -8,8 +8,13 @@ import { Card } from './card.entity';
 export class CardService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAllCard(): Promise<Card[]> {
+  async findAllCard(params: {
+    orderBy: { position: 'asc' | 'desc' };
+    where?: { columnId: number };
+  }): Promise<Card[]> {
     return this.prisma.card.findMany({
+      orderBy: params.orderBy,
+      where: params.where,
       include: {
         column: true,
       },
