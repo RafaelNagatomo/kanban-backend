@@ -48,7 +48,7 @@ type Board {
 
 type Card {
   id: Int
-  title: String
+  name: String
   description: String
   position: Float
   createdAt: DateTime
@@ -143,8 +143,8 @@ input UpdateColumnInput {
 input CreateCardInput {
   name: String!
   description: String!
-  position: Float!
-  columnId: Float!
+  createdBy: Int!
+  columnId: Int!
 }
 
 input UpdateCardInput {

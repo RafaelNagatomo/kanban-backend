@@ -11,6 +11,6 @@ export class CreateCardInput {
   @Field(() => Int)
   createdBy?: number;
 
-  @Field()
+  @Field(() => Int)
   columnId?: number;
 }

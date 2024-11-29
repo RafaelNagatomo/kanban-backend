@@ -50,7 +50,7 @@ model Card {
   createdBy   Int?
   updatedAt   DateTime  @updatedAt
   updatedBy   Int?
-  name       String
+  name        String?
   description String?
   position    Int
   columnId    Int

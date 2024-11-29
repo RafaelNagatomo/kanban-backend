@@ -23,11 +23,19 @@ export class CardService {
   }
 
   async createCard(data: CreateCardInput): Promise<Card> {
+    const lastPosition = await this.prisma.card.findFirst({
+      where: { columnId: data.columnId },
+      orderBy: { position: 'desc' },
+      select: { position: true },
+    });
+    const nextPosition = (lastPosition?.position || 0) + 1;
+
     return this.prisma.card.create({
       data: {
-        title: data.title,
+        name: data.name,
         description: data.description,
-        position: data.position,
+        position: nextPosition,
+        createdBy: data.createdBy,
         column: { connect: { id: data.columnId } },
       },
     });

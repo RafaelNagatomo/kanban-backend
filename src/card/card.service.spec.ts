@@ -52,7 +52,7 @@ describe('CardService', () => {
       const card = TestUtil.giveMeAvalidCard();
       prisma.card.findUnique = jest.fn().mockResolvedValue(card);
 
-      const foundCard = await service.findCardById(card.id);
+      const foundCard = await service.findCardBycolumnId(card.id);
 
       expect(foundCard).toMatchObject(card);
       expect(prisma.card.findUnique).toHaveBeenCalledTimes(1);
@@ -61,7 +61,7 @@ describe('CardService', () => {
     it('should throw an exception if card not found', async () => {
       prisma.card.findUnique = jest.fn().mockResolvedValue(null);
 
-      await expect(service.findCardById(999)).rejects.toThrowError(
+      await expect(service.findCardBycolumnId(999)).rejects.toThrowError(
         `Card with ID 999 not found`,
       );
       expect(prisma.card.findUnique).toHaveBeenCalledTimes(1);
@@ -87,7 +87,7 @@ describe('CardService', () => {
       prisma.card.update = jest.fn().mockResolvedValue(updatedCard);
 
       const result = await service.updateCard(card.id, {
-        title: 'Updated title',
+        name: 'Updated title',
       });
 
       expect(result).toMatchObject(updatedCard);
@@ -100,7 +100,7 @@ describe('CardService', () => {
         .mockRejectedValue(new Error('Card not found'));
 
       await expect(
-        service.updateCard(999, { title: 'Updated title' }),
+        service.updateCard(999, { name: 'Updated title' }),
       ).rejects.toThrow(`Card with ID 999 not found`);
       expect(prisma.card.update).toHaveBeenCalledTimes(1);
     });

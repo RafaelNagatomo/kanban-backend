@@ -45,7 +45,7 @@ export default class TestUtil {
   static giveMeAvalidCard(): Card {
     const card = new Card();
     card.id = 1;
-    card.title = 'Sample Card';
+    card.name = 'Sample Card';
     card.createdAt = new Date('2024-01-02T00:00:00.000Z');
     card.createdBy = 1;
     card.updatedAt = new Date('2024-01-02T00:00:00.000Z');
