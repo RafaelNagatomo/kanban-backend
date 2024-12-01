@@ -51,6 +51,24 @@ export class CardResolver {
   }
 
   // @UseGuards(GqlAuthGuard)
+  @Mutation(() => [Card])
+  async updateCardsPositions(
+    @Args('cards', { type: () => [UpdateCardInput] })
+    cards: UpdateCardInput[],
+  ): Promise<Card[]> {
+    const updatedCards = await Promise.all(
+      cards.map((card) =>
+        this.cardService.updateCard(card.id, {
+          position: card.position,
+          columnId: card.columnId,
+        }),
+      ),
+    );
+
+    return updatedCards;
+  }
+
+  // @UseGuards(GqlAuthGuard)
   @Mutation(() => Boolean)
   async deleteCard(
     @Args('id', { type: () => Int }) id: number,

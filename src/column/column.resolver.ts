@@ -56,14 +56,13 @@ export class ColumnResolver {
     @Args('columns', { type: () => [UpdateColumnInput] })
     columns: UpdateColumnInput[],
   ): Promise<Column[]> {
-    const updatedColumns = [];
-
-    for (const column of columns) {
-      const updatedColumn = await this.columnService.updateColumn(column.id, {
-        position: column.position,
-      });
-      updatedColumns.push(updatedColumn);
-    }
+    const updatedColumns = await Promise.all(
+      columns.map((column) =>
+        this.columnService.updateColumn(column.id, {
+          position: column.position,
+        }),
+      ),
+    );
 
     return updatedColumns;
   }

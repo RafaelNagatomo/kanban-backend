@@ -87,6 +87,7 @@ type Mutation {
   deleteColumn(id: Int!): Boolean!
   createCard(data: CreateCardInput!): Card!
   updateCard(id: Int!, data: UpdateCardInput!): Card!
+  updateCardsPositions(cards: [UpdateCardInput!]!): [Card!]!
   deleteCard(id: Int!): Boolean!
 }
 
